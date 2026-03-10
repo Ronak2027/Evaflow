@@ -1,23 +1,6 @@
 {
   "version": 2,
+  "public": false,
   "buildCommand": "npm run build",
-  "outputDirectory": "frontend",
-  "functions": {
-    "api/server.js": {
-      "runtime": "nodejs18.x"
-    },
-    "backend/server.js": {
-      "runtime": "nodejs18.x"
-    }
-  },
-  "rewrites": [
-    {
-      "source": "/api/(.*)",
-      "destination": "/api/server.js"
-    },
-    {
-      "source": "/(.*)",
-      "destination": "/frontend/$1"
-    }
-  ]
+  "outputDirectory": "frontend"
 }
