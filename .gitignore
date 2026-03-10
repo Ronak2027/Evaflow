@@ -1,0 +1,72 @@
+# Dependencies
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Environment variables
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# Build outputs
+dist/
+build/
+<<<<<<< HEAD
+=======
+.vercel/
+>>>>>>> 1c4cb5687f3df12d8ccb25a07fb499a72f9f9f2a
+
+# Logs
+logs
+*.log
+
+# Runtime data
+pids
+*.pid
+*.seed
+*.pid.lock
+
+# Coverage directory used by tools like istanbul
+coverage/
+
+<<<<<<< HEAD
+# Uploads
+uploads/
+
+# IDE
+=======
+# IDE files
+>>>>>>> 1c4cb5687f3df12d8ccb25a07fb499a72f9f9f2a
+.vscode/
+.idea/
+*.swp
+*.swo
+
+<<<<<<< HEAD
+# OS
+.DS_Store
+Thumbs.db
+
+# Vercel
+=======
+# OS generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Uploads
+backend/uploads/
+
+# Temporary files
+tmp/
+temp/
+
+>>>>>>> 1c4cb5687f3df12d8ccb25a07fb499a72f9f9f2a
+.vercel
