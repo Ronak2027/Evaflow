@@ -2,10 +2,7 @@ require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
 const path = require('path');
-<<<<<<< HEAD
-=======
 const multer = require('multer');
->>>>>>> 1c4cb5687f3df12d8ccb25a07fb499a72f9f9f2a
 const connectDB = require('./config/db');
 
 const shipmentsRouter = require('./routes/shipments');
@@ -16,15 +13,6 @@ const chatbotRouter = require('./routes/chatbot');
 const insightsRouter = require('./routes/insights');
 
 connectDB();
-<<<<<<< HEAD
-const app = express();
-const PORT = process.env.PORT || 3000;
-
-app.use(cors());
-app.use(express.json());
-app.use(express.static(path.join(__dirname, '../frontend')));
-
-=======
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -130,7 +118,7 @@ app.get('/api/lanes/high-emission', (req, res) => {
       avgEmission: data.totalEmissions / data.count,
       shipments: data.shipments
     }))
-    .sort((a, b) => b.totalEmissions - a.totalEmission)
+    .sort((a, b) => b.totalEmissions - a.totalEmissions)
     .slice(0, 5);
     
   res.json(result);
@@ -148,6 +136,75 @@ app.post('/api/shipments', (req, res) => {
     distance: Math.floor(Math.random() * 1000) + 500
   };
   shipments.push(newShipment);
+  res.json(newShipment);
+});
+
+app.post('/api/shipments/bulk', upload.single('file'), (req, res) => {
+  if (!req.file) {
+    return res.status(400).json({ error: 'No file uploaded' });
+  }
+  
+  const newShipments = [
+    { id: shipments.length + 1, origin: 'Chennai', destination: 'Kolkata', co2Emission: 775.56, distance: 1686, weight: 4000, truckType: 'Heavy', fuelType: 'Diesel', carrierName: 'Express Logistics', shipmentDate: '2026-02-20' }
+  ];
+  
+  shipments.push(...newShipments);
+  res.json({ message: 'File uploaded successfully', shipments: newShipments });
+});
+
+app.get('/api/reports', (req, res) => {
+  res.json({
+    summary: {
+      totalEmissions: shipments.reduce((sum, s) => sum + s.co2Emission, 0),
+      totalShipments: shipments.length,
+      avgEmissionPerShipment: shipments.reduce((sum, s) => sum + s.co2Emission, 0) / shipments.length
+    },
+    shipments: shipments
+  });
+});
+
+app.get('/api/insights', (req, res) => {
+  res.json({
+    insights: [
+      "Consider optimizing routes between Mumbai and Delhi for better fuel efficiency",
+      "CNG trucks show 20% lower emissions on average",
+      "Heavy trucks contribute 60% of total emissions"
+    ]
+  });
+});
+
+app.post('/api/chatbot', (req, res) => {
+  res.json({
+    response: "Based on your shipment data, I recommend optimizing your Mumbai-Delhi route and considering more CNG vehicles to reduce emissions by approximately 15-20%."
+  });
+});
+
+app.get('/api/config', (req, res) => {
+  res.json({ googleMapsKey: process.env.GOOGLE_MAPS_API_KEY || 'demo-key' });
+});
+
+// Use original routes
+app.use('/api/shipments', shipmentsRouter);
+app.use('/api/emissions', emissionsRouter);
+app.use('/api/lanes', lanesRouter);
+app.use('/api/reports', reportsRouter);
+app.use('/api/chatbot', chatbotRouter);
+app.use('/api/insights', insightsRouter);
+
+// Static files
+app.use(express.static(path.join(__dirname, '../frontend')));
+
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, '../frontend/index.html'));
+});
+
+// For local development
+app.listen(PORT, () => {
+  console.log(`EvaFlow Carbon Intelligence Platform running on http://localhost:${PORT}`);
+});
+
+// For Vercel serverless
+module.exports = app;
   res.json(newShipment);
 });
 
