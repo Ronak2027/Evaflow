@@ -7,8 +7,9 @@ const shipments = [
   { id: 5, origin: 'Pune', destination: 'Delhi', co2Emission: 368.10, distance: 818, weight: 6000, truckType: 'Heavy', fuelType: 'Diesel', carrierName: 'Fast Cargo', shipmentDate: '2026-02-15' }
 ];
 
-export default function handler(req, res) {
+module.exports = function handler(req, res) {
   res.setHeader('Content-Type', 'application/json');
+  res.setHeader('Access-Control-Allow-Origin', '*');
   
   if (req.method === 'GET') {
     res.status(200).json(shipments);
@@ -24,4 +25,4 @@ export default function handler(req, res) {
   } else {
     res.status(405).json({ error: 'Method not allowed' });
   }
-}
+};

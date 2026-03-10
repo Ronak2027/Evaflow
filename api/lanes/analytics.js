@@ -6,9 +6,17 @@ const shipments = [
   { id: 5, origin: 'Pune', destination: 'Delhi', co2Emission: 368.10, distance: 818, weight: 6000, truckType: 'Heavy', fuelType: 'Diesel', carrierName: 'Fast Cargo', shipmentDate: '2026-02-15' }
 ];
 
-export default function handler(req, res) {
+module.exports = function handler(req, res) {
   res.setHeader('Content-Type', 'application/json');
+  res.setHeader('Access-Control-Allow-Origin', '*');
   const laneData = {};
+  const shipments = [
+    { id: 1, origin: 'Mumbai', destination: 'Delhi', co2Emission: 532.50, distance: 1420 },
+    { id: 2, origin: 'Delhi', destination: 'Bangalore', co2Emission: 698.25, distance: 2100 },
+    { id: 3, origin: 'Bangalore', destination: 'Chennai', co2Emission: 66.50, distance: 350 },
+    { id: 4, origin: 'Mumbai', destination: 'Hyderabad', co2Emission: 303.52, distance: 710 },
+    { id: 5, origin: 'Pune', destination: 'Delhi', co2Emission: 368.10, distance: 818 }
+  ];
   shipments.forEach(s => {
     const lane = `${s.origin} → ${s.destination}`;
     if (!laneData[lane]) {
@@ -28,4 +36,4 @@ export default function handler(req, res) {
   }));
   
   res.status(200).json(result);
-}
+};

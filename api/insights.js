@@ -1,5 +1,6 @@
-export default function handler(req, res) {
+module.exports = function handler(req, res) {
   res.setHeader('Content-Type', 'application/json');
+  res.setHeader('Access-Control-Allow-Origin', '*');
   res.status(200).json({
     insights: [
       "Consider optimizing routes between Mumbai and Delhi for better fuel efficiency",
@@ -7,4 +8,4 @@ export default function handler(req, res) {
       "Heavy trucks contribute 60% of total emissions"
     ]
   });
-}
+};

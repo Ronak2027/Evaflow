@@ -6,8 +6,9 @@ const shipments = [
   { id: 5, origin: 'Pune', destination: 'Delhi', co2Emission: 368.10, distance: 818, weight: 6000, truckType: 'Heavy', fuelType: 'Diesel', carrierName: 'Fast Cargo', shipmentDate: '2026-02-15' }
 ];
 
-export default function handler(req, res) {
+module.exports = function handler(req, res) {
   res.setHeader('Content-Type', 'application/json');
+  res.setHeader('Access-Control-Allow-Origin', '*');
   const totalEmissions = shipments.reduce((sum, s) => sum + s.co2Emission, 0);
   const totalDistance = shipments.reduce((sum, s) => sum + s.distance, 0);
   const avgEmission = totalEmissions / shipments.length;
@@ -18,4 +19,4 @@ export default function handler(req, res) {
     totalDistance,
     avgEmission
   });
-}
+};
