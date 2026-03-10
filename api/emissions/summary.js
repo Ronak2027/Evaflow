@@ -1,4 +1,3 @@
-// Sample data
 const shipments = [
   { id: 1, origin: 'Mumbai', destination: 'Delhi', co2Emission: 532.50, distance: 1420, weight: 5000, truckType: 'Heavy', fuelType: 'Diesel', carrierName: 'ABC Logistics', shipmentDate: '2026-01-15' },
   { id: 2, origin: 'Delhi', destination: 'Bangalore', co2Emission: 698.25, distance: 2100, weight: 3500, truckType: 'Medium', fuelType: 'Diesel', carrierName: 'XYZ Transport', shipmentDate: '2026-01-20' },
@@ -9,19 +8,14 @@ const shipments = [
 
 export default function handler(req, res) {
   res.setHeader('Content-Type', 'application/json');
+  const totalEmissions = shipments.reduce((sum, s) => sum + s.co2Emission, 0);
+  const totalDistance = shipments.reduce((sum, s) => sum + s.distance, 0);
+  const avgEmission = totalEmissions / shipments.length;
   
-  if (req.method === 'GET') {
-    res.status(200).json(shipments);
-  } else if (req.method === 'POST') {
-    const newShipment = {
-      id: shipments.length + 1,
-      ...req.body,
-      co2Emission: Math.random() * 500 + 100,
-      distance: Math.floor(Math.random() * 1000) + 500
-    };
-    shipments.push(newShipment);
-    res.status(201).json(newShipment);
-  } else {
-    res.status(405).json({ error: 'Method not allowed' });
-  }
+  res.status(200).json({
+    totalEmissions,
+    shipmentCount: shipments.length,
+    totalDistance,
+    avgEmission
+  });
 }
