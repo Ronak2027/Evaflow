@@ -1,6 +1,8 @@
 {
   "version": 2,
-  "public": false,
   "buildCommand": "npm run build",
-  "outputDirectory": "frontend"
+  "outputDirectory": "frontend",
+  "api": {
+    "baseUrl": "/api"
+  }
 }
